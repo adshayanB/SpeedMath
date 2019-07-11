@@ -1,11 +1,13 @@
 package ads.speedmath;
 
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
     TextView result;
     TextView pointView;
     TextView sumview;
-
+    RelativeLayout game;
+    MediaPlayer mplayer;
     ArrayList <Integer> answers = new ArrayList<Integer>();
     int location;
     int score = 0;
@@ -27,6 +30,48 @@ public class MainActivity extends AppCompatActivity {
     Button button2;
     Button button3;
  TextView timerView;
+ Button playAgain;
+
+ public void playAgain (View view){
+
+     score= 0;
+     numQ=0;
+     timerView.setText("30s");
+     pointView.setText("0/0");
+     result.setText("");
+     playAgain.setVisibility(View.INVISIBLE);
+     questionGenerate();
+     button0.setEnabled(true);
+     button1.setEnabled(true);
+     button2.setEnabled(true);
+     button3.setEnabled(true);
+     new CountDownTimer(30100,1000){
+
+         @Override
+         public void onTick(long sec) {
+
+             timerView.setText(String.valueOf(sec/1000)+"s");
+
+         }
+
+         @Override
+         public void onFinish() {
+             playAgain.setVisibility(View.VISIBLE);
+             button0.setEnabled(false);
+             button1.setEnabled(false);
+             button2.setEnabled(false);
+             button3.setEnabled(false);
+             timerView.setText("0s");
+             result.setText("Your score: " + Integer.toString(score)+ "/" + Integer.toString(numQ));
+             mplayer = (MediaPlayer) MediaPlayer.create(getApplicationContext(), R.raw.airhorn);
+             mplayer.start();
+
+         }
+     }.start();
+
+
+
+ }
 
 
     public void questionGenerate (){
@@ -89,6 +134,9 @@ public class MainActivity extends AppCompatActivity {
     public void start (View view){
 
         startButton.setVisibility(View.INVISIBLE);
+        game.setVisibility(View.VISIBLE);
+        playAgain(findViewById(R.id.playAgainbutton));
+
 
     }
     @Override
@@ -105,22 +153,11 @@ public class MainActivity extends AppCompatActivity {
         startButton = findViewById(R.id.startButton);
         sumview = findViewById(R.id.sumView);
         timerView = findViewById(R.id.timerView);
-        questionGenerate();
+        playAgain=findViewById(R.id.playAgainbutton);
+        game = findViewById(R.id.game);
 
-        new CountDownTimer(30100,1000){
 
-            @Override
-            public void onTick(long l) {
 
-                timerView.setText(String.valueOf(1/1000));
-
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
-        };
 
     }
 
