@@ -1,5 +1,6 @@
 package ads.speedmath;
 
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     Button button1;
     Button button2;
     Button button3;
-
+ TextView timerView;
 
 
     public void questionGenerate (){
@@ -103,7 +104,23 @@ public class MainActivity extends AppCompatActivity {
         button3= findViewById(R.id.button3);
         startButton = findViewById(R.id.startButton);
         sumview = findViewById(R.id.sumView);
+        timerView = findViewById(R.id.timerView);
         questionGenerate();
+
+        new CountDownTimer(30100,1000){
+
+            @Override
+            public void onTick(long l) {
+
+                timerView.setText(String.valueOf(1/1000));
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        };
 
     }
 
