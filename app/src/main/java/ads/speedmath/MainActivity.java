@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
         Random rand = new Random();
 
 
-        int a = rand.nextInt(21);
-        int b = rand.nextInt(21);
+        int a = rand.nextInt(51);
+        int b = rand.nextInt(51);
 
         sumview.setText(Integer.toString(a) + " + " + Integer.toString(b));
 
@@ -95,11 +95,11 @@ public class MainActivity extends AppCompatActivity {
                 answers.add(a + b);
 
             } else {
-                wrongchoice = rand.nextInt(41);
+                wrongchoice = rand.nextInt(101);
 
                 while (wrongchoice == (a + b)) {
 
-                    wrongchoice = rand.nextInt(41);
+                    wrongchoice = rand.nextInt(101);
                 }
                 answers.add(wrongchoice);
             }
